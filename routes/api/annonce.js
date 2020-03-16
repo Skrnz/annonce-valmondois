@@ -18,3 +18,8 @@ exports.Save = (req, res) => {
 		}
 	});
 };
+
+exports.Envoyer = (req, res) => {
+	console.log('req.params', req.params);
+	console.log('req.body', req.body);
+};

@@ -1,13 +1,12 @@
 extends ../layouts/default
 
 mixin annonce(annonce)
-	.card
+	.card.mb-3
 		.card-body
 			.container-fluid
 				h3= annonce.titre
-				|!= annonce.message
-			a(href='/contacter/' + annonce.id).btn.btn-primary Contacter
-
+				!= annonce.message
+			button.btn.btn-block.btn-primary.mt-2(type="button", data-toggle="modal", data-target="#modalContact", data-annonce= annonce.id) Contacter l'annonceur
 
 block content
 	.container
@@ -23,3 +22,85 @@ block content
 				each annonce in data.annonces
 					if annonce.type == 'Demande'
 						+annonce(annonce)
+
+	.modal.fade#modalContact(tabindex="-1", role="dialog", aria-labelledby="titreModal", aria-hidden="true")
+		.modal-dialog.modal-dialog-centered(role="document")
+			.modal-content
+				.modal-header
+					h5.modal-title#titreModal Contacter quelqu'un au sujet de son annonce
+					button(type="button", class="close", data-dismiss="modal", aria-label="Close")
+					span(aria-hidden="true") &times;
+				form#envoyer(name="envoyer", role="form")
+					.modal-body
+						p pour contacter l'annonceur, merci de fournir votre nom, prénom ainsi que votre email.
+						p un message va lui être envoyé et il pourra ainsi vous répondre
+						.form-group.row
+							label.col-sm-4.col-form-label(for="prenom") Votre prénom :
+							.col-sm-8
+								input.form-control#prenom(type="text", required=true)
+								.invalid-feedback Merci de vous identifier clairement
+						.form-group.row
+							label.col-sm-4.col-form-label(for="nom") Votre nom :
+							.col-sm-8
+								input.form-control#nom(type="text", required=true)
+								.invalid-feedback Merci de vous identifier clairement
+						.form-group.row
+							label.col-sm-4.col-form-label(for="email") Votre email :
+							.col-sm-8
+								input.form-control#email(type="email", required=true)
+								.invalid-feedback Votre email est indispensable pour être recontacté
+						.form-group.row
+							label.col-sm-4.col-form-label(for="telephone") Votre téléphone :
+							.col-sm-8
+								input.form-control#telephone(type="telephone")
+						.form-group.row
+							label.col-sm-4.col-form-label(for="message") Un petit message :
+							.col-sm-8
+								textarea.form-control#message(rows="4", required=true)
+								.invalid-feedback Un petit message pour vous présenter est la moindre des politesses non ?
+					p#annonce
+					.modal-footer
+						button(type="button", class="btn btn-secondary", data-dismiss="modal") Abandonner
+						input#submit(type="submit", class="btn btn-primary")
+
+block js
+	script.
+		$(document).ready(function() {
+			var annonce;
+			var request;
+			$("#modalContact").on("show.bs.modal", function (event) {
+				var button = $(event.relatedTarget);
+				annonce = button.data('annonce');
+				console.log('annonce', annonce);
+			});
+			$("#envoyer").submit(function (event) {
+				console.log('annonce', annonce);
+				event.preventDefault();
+				if (request) { request.abort(); }
+				var $form=$( this );
+				var $fc = document.getElementsByClassName('form-control');
+				for (fc = 0; fc < $fc.length; fc++) {
+					if (!$fc[fc].checkValidity()) {
+						$fc[fc].classList.add('is-invalid')
+						return;
+					}
+				}
+				var $inputs = $form.find('input, button, select, textarea');
+				$inputs.prop("disabled", true);
+				const data = {
+						prenom: $("#prenom").val(),
+						nom: $("#nom").val(),
+						email: $("#email").val(),
+						telephone: $("#telephone").val(),
+						message: $("#message").val()
+					}
+				request = $.ajax({
+					url:'/api/envoyer/' + annonce,
+					type: 'post',
+					data : data,
+					dataType: 'json'
+				});
+				$("#modalContact").modal("hide");
+			});
+
+		});
