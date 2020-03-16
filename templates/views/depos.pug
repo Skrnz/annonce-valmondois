@@ -1,0 +1,126 @@
+extends ../layouts/default
+
+block content
+	.container
+		.row
+			.col-lg-12
+				h1 Déposez ici votre annonce
+				p les annonces sont modérées avant d'être publiées'
+		.row
+			.col-lg-12
+				form#contact-form(action="/api/validation" novalidate)
+					.container
+						.form-row
+							.col-lg-12
+								h2 Votre annonce
+							.col-md-6
+								.form-group
+									label Type d'annonce
+									select.form-control.form-control-lg(id = "typeAnnonce")
+										option Offre de service
+										option Demande d'aide
+							.col-lg-6
+								.form-group
+									label Titre de votre annonce
+									input.form-control.form-control-lg(type="text", placeholder="Titre", required, id = "titre")
+									.invalid-feedback Le titre est nécessaire pour afficher votre annonce
+							.col-lg-12
+								.form-group
+									label Votre annonce
+									textarea.form-control#annonce(rows="6", required)
+									.invalid-feedback Il faut décrire ce que vous attendez ou proposez !
+						.form-row
+							.col-lg-12
+								h2 A propos de vous
+							.col-md-6
+								.form-group
+									label Prénom
+									input.form-control#prenom(type="text", placeholder="Votre prénom", required)
+									.invalid-feedback Ce champ est requis
+							.col-md-6
+								.form-group
+									label Nom
+									input.form-control#nom(type="text", placeholder="Votre nom", required)
+									.invalid-feedback Ce champ est requis
+							.col-md-6
+								.form-group
+									label Email
+									input.form-control#email(type="email", placeholder="Email Address", required)
+									.invalid-feedback Il faut pouvoir vous contacter
+							.col-md-6
+								.form-group
+									label Téléphone
+									input.form-control#telephone(type="phone", placeholder="Téléphone", required)
+									.invalid-feedback Il faut pouvoir vous contacter
+						.form-row
+							.col-md-3.justify-content-end
+								button.btn.btn-primary(type="submit") Envoyer
+				.alert#result
+
+block js
+	script.
+		(function() {
+		'use strict';
+		window.addEventListener('load', function() {
+			// fetch all the forms we want to apply custom style
+			var inputs = document.getElementsByClassName('form-control')
+
+			// loop over each input and watch blue event
+			var validation = Array.prototype.filter.call(inputs, function(input) {
+
+			input.addEventListener('blur', function(event) {
+				// reset
+				input.classList.remove('is-invalid')
+				input.classList.remove('is-valid')
+
+				if (input.checkValidity() === false) {
+					input.classList.add('is-invalid')
+				}
+				else {
+					input.classList.add('is-valid')
+				}
+			}, false);
+			});
+		}, false);
+		})()
+
+	//- script.
+	//- 	var request;
+	//- 	$("#contact-form").submit( function (event) {
+	//- 		event.preventDefault();
+	//- 		if (request) { request.abort(); }
+	//- 		var $form=$('#contact-form');
+	//- 		var $test = $("#test");
+	//- 		$test.removeClass("erreur");
+			
+	//- 		var $inputs = $form.find('input, button, select, textarea');
+	//- 		$inputs.prop("disabled", true);
+	//- 		var value = parseFloat($test.val());
+	//- 		if (value !== #{data.chiffre.chiffre}) {
+	//- 			$test.addClass("erreur");
+	//- 			$inputs.prop("disabled", false);
+	//- 			$test.text("");
+	//- 			return;
+	//- 		}
+	//- 		request = $.ajax({
+	//- 			url:'/api/contact',
+	//- 			type: 'post',
+	//- 			data : {
+	//- 				nom: $('#nom').val(),
+	//- 				email: $('#email').val(),
+	//- 				sujet: $('#sujet').val(),
+	//- 				telephone: $('#telephone').val(),
+	//- 				message: $('#message').val()
+	//- 			},
+	//- 			dataType: 'json'
+	//- 		})
+	//- 		.done(function (data) { 
+	//- 			$form.css("display", "none");
+	//- 			$('#result').html(data.message).addClass("alert-success").css("display", "block");
+	//- 		})
+	//- 		.fail(function (err) {
+	//- 			$form.css("display", "none");
+	//- 			$('#result').html(err.responseJSON.error).addClass("alert-danger").css("display", "block");
+	//- 		})
+	//- 		.always( function(html) { $inputs.prop("disabled", false); });
+	//- 	});

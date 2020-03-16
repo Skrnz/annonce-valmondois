@@ -1,0 +1,25 @@
+extends ../layouts/default
+
+mixin annonce(annonce)
+	.card
+		.card-body
+			.container-fluid
+				h3= annonce.titre
+				|!= annonce.message
+			a(href='/contacter/' + annonce.id).btn.btn-primary Contacter
+
+
+block content
+	.container
+		h1 Annonces offres et demandes
+		.row
+			.col-lg-6
+				h2 Offres
+				each annonce in data.annonces
+					if annonce.type == 'Offre'
+						+annonce(annonce)
+			.col-lg-6
+				h2 Demandes
+				each annonce in data.annonces
+					if annonce.type == 'Demande'
+						+annonce(annonce)
