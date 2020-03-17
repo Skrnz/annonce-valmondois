@@ -46,7 +46,7 @@ html
 				button.navbar-toggler(type="button", data-toggle="collapse", data-target="#menu", aria-controls="menu", aria-expanded="false", aria-label="Toggle navigation")
 					span.navbar-toggler-icon
 				.collapse.navbar-collapse#menu
-					a.navbar-brand(href='http://valmondois.fr', target='_blank', rel='noreferer') Mairie de Valmondois
+					a.navbar-brand(href='https://valmondois.fr', target='_blank', rel='noreferer') Mairie de Valmondois
 					ul.navbar-nav.mr-auto.mt-2.mt-lg-0
 						each link in navLinks
 							li.nav-item(class=(section == link.key ? 'active' : null)): a.nav-link(href=link.href)= link.label
@@ -78,7 +78,7 @@ html
 
 		//- JAVASCRIPT
 
-		script(src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")
+		script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")
 		script(src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js", integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo", crossorigin="anonymous")
 		script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js", integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6", crossorigin="anonymous")
 		
