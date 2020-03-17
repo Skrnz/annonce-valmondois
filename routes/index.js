@@ -17,7 +17,10 @@ exports = module.exports = function (app) {
 	// Views
 	app.get('/', routes.views.index);
 	app.get('/depos', routes.views.depos);
+	app.get('/listeannonces', routes.views.liste);
 
 	app.post('/api/validation', routes.api.annonce.Save);
 	app.post('/api/envoyer/:annonce', routes.api.annonce.Envoyer);
+	app.get('/api/valide/:annonce', routes.api.annonce.Valide);
+	app.get('/api/delete/:annonce', routes.api.annonce.Delete);
 };

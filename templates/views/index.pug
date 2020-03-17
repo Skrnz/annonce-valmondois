@@ -71,7 +71,6 @@ block js
 			$("#modalContact").on("show.bs.modal", function (event) {
 				var button = $(event.relatedTarget);
 				annonce = button.data('annonce');
-				console.log('annonce', annonce);
 			});
 			$("#envoyer").submit(function (event) {
 				console.log('annonce', annonce);

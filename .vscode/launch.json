@@ -5,11 +5,13 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"type": "chrome",
+			"type": "node",
 			"request": "launch",
-			"name": "keystone",
-			"url": "http://localhost:3000",
-			"webRoot": "${workspaceFolder}"
+			"name": "Lancer le programme",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}\\keystone.js"
 		}
 	]
 }

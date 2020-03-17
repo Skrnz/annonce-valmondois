@@ -42,17 +42,17 @@ html
 			//- Customise your site's navigation by changing the navLinks Array in ./routes/middleware.js
 			//- ... or completely change this header to suit your design.
 
-			nav.navbar.navbar-expand-lg.navbar-light.bg-light
-				button.navbar-toggler(type="button", data-toggle="collapse", data-target="#manu", aria-controls="menu", aria-expanded="false", aria-label="Toggle navigation")
+			nav.navbar.navbar-expand-lg.sticky-top.navbar-light.bg-light
+				button.navbar-toggler(type="button", data-toggle="collapse", data-target="#menu", aria-controls="menu", aria-expanded="false", aria-label="Toggle navigation")
 					span.navbar-toggler-icon
-				.collapse.navbar-collapse#mennu
+				.collapse.navbar-collapse#menu
 					a.navbar-brand(href='http://valmondois.fr', target='_blank', rel='noreferer') Mairie de Valmondois
 					ul.navbar-nav.mr-auto.mt-2.mt-lg-0
 						each link in navLinks
 							li.nav-item(class=(section == link.key ? 'active' : null)): a.nav-link(href=link.href)= link.label
 						if user
 							li.nav-item
-								a.nav-link(href='/listeAnnonces') gérer les annonces
+								a.nav-link(href='/listeannonces') gérer les annonces
 		//- BODY
 		#body
 
