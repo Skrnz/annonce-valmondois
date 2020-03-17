@@ -5,7 +5,7 @@ block content
 		.row
 			.col-lg-12
 				h1 Déposez ici votre annonce
-				p les annonces sont modérées avant d'être publiées
+				p les annonces sont modérées avant d"être publiées
 		.row
 			.col-lg-12
 				form#contact-form(novalidate)
@@ -15,10 +15,10 @@ block content
 								h2 Votre annonce
 							.col
 								.form-group
-									label(for="typeAnnonce") Type d'annonce
+									label(for="typeAnnonce") Type d"annonce
 									select.form-control.form-control-lg#typeAnnonce
-										option(valure="Offre") Offre de service
-										option(value="Demande") Demande d'aide
+										option(value="Offre") Offre de service
+										option(value="Demande") Demande d"aide
 							.col
 								.form-group
 									label(for="titre") Titre de votre annonce
@@ -29,6 +29,18 @@ block content
 									label(for="annonce") Votre annonce
 									textarea.form-control#message(rows="6", required)
 									.invalid-feedback Il faut décrire ce que vous attendez ou proposez !
+							.col
+								.form-group
+									label(for="typeAnnonce") J'habite dans ce quartier
+									select.form-control.form-control-lg#quartier
+										option(value="PAL") Port au loup
+										option(value="CENTRE") Centre village
+										option(value="NAZE") La Naze
+										option(value="BUTRY") Butry s/Oise
+										option(value="NESLES") Nesles la valée
+										option(value="PARMAIN") Parmain
+										option(value="LOIN") plus loin
+
 						.form-row
 							.col-lg-12
 								h2 A propos de vous
@@ -60,18 +72,18 @@ block content
 block js
 	script.
 		(function() {
-			'use strict';
-			window.addEventListener('load', function() {
-				var inputs = document.getElementsByClassName('form-control')
+			"use strict";
+			window.addEventListener("load", function() {
+				var inputs = document.getElementsByClassName("form-control")
 				var validation = Array.prototype.filter.call(inputs, function(input) {
-				input.addEventListener('blur', function(event) {
-					input.classList.remove('is-invalid')
-					input.classList.remove('is-valid')
+				input.addEventListener("blur", function(event) {
+					input.classList.remove("is-invalid")
+					input.classList.remove("is-valid")
 					if (input.checkValidity() === false) {
-						input.classList.add('is-invalid')
+						input.classList.add("is-invalid")
 					}
 					else {
-						input.classList.add('is-valid')
+						input.classList.add("is-valid")
 					}
 				}, false);
 				});
@@ -81,38 +93,42 @@ block js
 		$("#contact-form").submit(function (event) {
 			event.preventDefault();
 			if (request) { request.abort(); }
-			var $form=$('#contact-form');
-			var $fc = document.getElementsByClassName('form-control');
+			var $form=$("#contact-form");
+			var $fc = document.getElementsByClassName("form-control");
 			for (fc = 0; fc < $fc.length; fc++) {
 				if (!$fc[fc].checkValidity()) {
-					$fc[fc].classList.add('is-invalid')
+					$fc[fc].classList.add("is-invalid")
 					return;
 				}
 			}
-			var $inputs = $form.find('input, button, select, textarea');
+			var $inputs = $form.find("input, button, select, textarea");
 			$inputs.prop("disabled", true);
-			const t  = $('#typeAnnonce');
+			const ta  = document.getElementById("typeAnnonce");
+			const typea = ta.options[ta.selectedIndex].value;
+			const q = document.getElementById("quartier");
+			const quartier = q.options[q.selectedIndex].value;
 			request = $.ajax({
-				url:'/api/validation',
-				type: 'post',
+				url:"/api/validation",
+				type: "post",
 				data : {
-					type: (t[0].selectedIndex === 0) ? "Offre" : "Demande",
-					titre: $('#titre').val(),
-					message: $('#message').val(),
-					prenom: $('#prenom').val(),
-					nom: $('#nom').val(),
-					email: $('#email').val(),
-					telephone: $('#telephone').val()
+					type: typea,
+					titre: $("#titre").val(),
+					message: $("#message").val(),
+					quartier: quartier,
+					prenom: $("#prenom").val(),
+					nom: $("#nom").val(),
+					email: $("#email").val(),
+					telephone: $("#telephone").val()
 				},
-				dataType: 'json'
+				dataType: "json"
 			})
 			.done(function (data) { 
 				$form.css("display", "none");
-				$('#result').html(data.message).addClass("alert-success").css("display", "block");
+				$("#result").html(data.message).addClass("alert-success").css("display", "block");
 			})
 			.fail(function (err) {
 				$form.css("display", "none");
-				$('#result').html(err.responseJSON.error).addClass("alert-danger").css("display", "block");
+				$("#result").html(err.responseJSON.error).addClass("alert-danger").css("display", "block");
 			})
 			.always( function(html) { $inputs.prop("disabled", false); });
 		});

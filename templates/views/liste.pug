@@ -18,7 +18,9 @@ block content
 					each annonce in data.annonces
 						tr
 							th(scope="row")= annonce._.dateDepot.format('DD/MM/YYYY H:mm')
-							td= annonce.type
+							td
+								p= annonce.type
+								p= annonce.quartier
 							td
 								p= annonce.prenom + ' ' + annonce.nom
 								p= annonce.email

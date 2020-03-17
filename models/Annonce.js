@@ -12,7 +12,7 @@ var Annonce = new keystone.List('Annonce', {
 Annonce.add({
 	titre: { type: String, required: true },
 	type: { type: Types.Select, options: 'Offre, Demande' },
-	quartier: { type: Types.Select, options: 'Port au loup, Centre village, La Naze, Butry s/Oise, Nesles la valée, Parmain, plus loin' },
+	quartier: { type: Types.Select, options: 'PAL, CENTRE, NAZE, BUTRY, NESLES, PARMAIN, LOIN' },
 	message: { type: Types.Textarea, height: 400 },
 	nom: { type: String },
 	prenom: { type: String },
@@ -26,6 +26,6 @@ Annonce.add({
 /**
  * Registration
  */
-Annonce.defaultColumns = 'titre, type, prenom, nom, dateDepot, validee';
+Annonce.defaultColumns = 'titre, type, prenom, nom, dateDepot, quartier, validee';
 Annonce.defaultSort = '-dateDepot';
 Annonce.register();

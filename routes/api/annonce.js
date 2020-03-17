@@ -6,14 +6,14 @@ exports.Save = (req, res) => {
 	const updater = newAnnonce.getUpdateHandler(req);
 	updater.process(req.body, {
 		flashErrors: true,
-		fields: 'titre, type, message, nom, prenom, telephone, email',
+		fields: 'titre, type, message, nom, prenom, telephone, email, quartier',
 		errorMessage: 'Problème lors de l\'enregistrment de l\'annonce',
 	}, function (err) {
 		if (err) {
-			res.status(500).flash('error', JSON.stringify(err));
+			res.status(500).json({ error: err });
 		} else {
 			console.log('annonce saved');
-			res.status(200).flash('success', 'Annonce enregistrée, en attente de modération, merci');
+			res.status(200).json({ success: true, message: 'Annonce enregistrée, en attente de modération, merci' });
 		}
 	});
 };
@@ -33,9 +33,9 @@ exports.Valide = async (req, res) => {
 		errorMessage: 'Problème lors de la validation de l\'annonce',
 	}, function (err) {
 		if (err) {
-			res.status(500).flash('error', JSON.stringify(err));
+			res.status(500).json({ error: err });
 		} else {
-			res.status(200).flash('success', 'Annonce validée');
+			res.status(200).json({ success: true, message: 'Annonce validée' });
 		}
 	});
 };
@@ -44,8 +44,8 @@ exports.Delete = async (req, res) => {
 	console.log('Delete', req.params.annonce);
 	const result = await keystone.list('Annonce').model.deleteOne({ _id: req.params.annonce });
 	if (result.result.ok) {
-		res.status(200).flash('success', 'Annonce supprimée');
+		res.status(200).json({ success: true, message: 'Annonce supprimée' });
 	} else {
-		res.status(500).flash('error', 'erreur lors de la suppression');
+		res.status(500).json({ error: 'erreur lors de la suppression' });
 	}
 };

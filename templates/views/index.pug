@@ -1,11 +1,34 @@
 extends ../layouts/default
 
 mixin annonce(annonce)
+	- var quartier
+	case annonce.quartier
+		when 'PAL'
+			- quartier = 'Port au loup'
+		when 'CENTRE'
+			- quartier = 'Centre village'
+		when 'NAZE'
+			- quartier = 'La Naze'
+		when 'BUTRY'
+			- quartier = 'Butry S/Oise'
+		when 'NESLES'
+			- quartier = 'Nesles La Vallée'
+		when 'PARMAIN'
+			- quartier = 'Parmain'
+		when 'LOIN'
+			- quartier = 'Plus loin'
+		default
+			- quartier = 'Inconnu'
+
 	.card.mb-3
 		.card-body
 			.container-fluid
 				h3= annonce.titre
 				!= annonce.message
+				.date-offre
+					= annonce._.dateDepot.format('DD/MM')
+				.ruban
+					= quartier
 			button.btn.btn-block.btn-primary.mt-2(type="button", data-toggle="modal", data-target="#modalContact", data-annonce= annonce.id) Contacter l'annonceur
 
 block content
