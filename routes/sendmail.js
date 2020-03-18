@@ -1,22 +1,17 @@
 const nodemailer = require('nodemailer');
 
 exports.sendMail = ({ to, subject, text, html }) => {
-	console.log('process.env.EMAIL_CONFIGURATION', process.env.EMAIL_CONFIGURATION);
-
-	const emailConfig = JSON.parse(process.env.EMAIL_CONFIGURATION);
-	// console.log('send mail with email config', emailConfig);
-
 	const transporter = nodemailer.createTransport({
-		host: emailConfig.host || 'smtp.online.net',
-		port: parseInt(emailConfig.port) || 587,
-		secure: false || emailConfig.secure,
+		host: process.env.EMAIL_CONFIGURATION_SMTP || 'smtp.online.net',
+		port: parseInt(process.env.EMAIL_CONFIGURATION_PORT) || 587,
+		secure: false || process.env.EMAIL_CONFIGURATION_SECURE,
 		auth: {
-			user: emailConfig.user || 'william@wsconseil.com',
-			pass: emailConfig.pass || 'WSConseil2008',
+			user: process.env.EMAIL_CONFIGURATION_USER || 'william@wsconseil.com',
+			pass: process.env.EMAIL_CONFIGURATION_PWD || 'WSConseil2008',
 		},
 	});
 	const mailOptions = {
-		from: emailConfig.from || 'nepasrepondre@valmondois.fr',
+		from: 'nepasrepondre@valmondois.fr',
 		to: to,
 		subject: subject,
 		text: text,
