@@ -127,7 +127,7 @@ block js
 			})
 			.fail(function (err) {
 				$form.css("display", "none");
-				$("#result").html(err.responseJSON.error).addClass("alert-danger").css("display", "block");
+				$("#result").html(err.error).addClass("alert-danger").css("display", "block");
 			})
 			.always( function(html) { $inputs.prop("disabled", false); });
 		});

@@ -123,8 +123,16 @@ block js
 					type: 'post',
 					data : data,
 					dataType: 'json'
+				})
+				.done(function (data) { 
+					alert(data.message);
+				})
+				.fail(function (err) {
+					alert(err.error);
+				})
+				.always( function(html) { 
+					$inputs.prop("disabled", false);
+					$("#modalContact").modal("hide");
 				});
-				$("#modalContact").modal("hide");
 			});
-
 		});

@@ -37,6 +37,7 @@ block content
 							td
 								.btn-group(role="group")
 									button.btn.btn-success.btn-action(type="button", data-annonce= "/api/valide/" + annonce.id) Valider
+									a.btn.btn-warning.btn-action(type="button", href= "/keystone/annonces/" + annonce.id) modifier
 									button.btn.btn-danger.btn-action(type="button", data-annonce= "/api/delete/" + annonce.id) Supprimer
 
 block js
@@ -50,10 +51,12 @@ block js
 					input.addEventListener('click', function(event) {
 						button = $( this );
 						url = button.data('annonce');
-						console.log(url)
-						$.get(url).done(function () {
-							location.reload(true);
-						})
+						if (url) {
+							console.log(url)
+							$.get(url).done(function () {
+								location.reload(true);
+							})
+						}
 					}, false);
 				});
 			}, false);

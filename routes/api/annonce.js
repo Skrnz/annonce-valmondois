@@ -1,5 +1,6 @@
 const keystone = require('keystone');
 const Annonce = keystone.list('Annonce');
+const sendMail = require('../sendmail');
 
 exports.Save = (req, res) => {
 	const newAnnonce = new Annonce.model();
@@ -18,14 +19,32 @@ exports.Save = (req, res) => {
 	});
 };
 
-exports.Envoyer = (req, res) => {
+exports.Envoyer = async (req, res) => {
 	console.log('req.params', req.params);
 	console.log('req.body', req.body);
+
+	try {
+		const annonce = await keystone.list('Annonce').model.findByIdAndUpdate(req.params.annonce, { $inc: { nbClick: 1 } });
+		sendMail.sendMail({
+			to: annonce.email,
+			subject: `Votre annonce ${annonce.titre} intéresse quelqu'un`,
+			text: `Votre annonce: ${annonce.titre} intéresse ${req.body.prenom} ${req.body.nom}, joignable par mail (${req.body.email}) ou par téléphone (${req.body.telephone})\n\n${req.body.message}`,
+			html: `Votre annonce: ${annonce.titre} intéresse ${req.body.prenom} ${req.body.nom}<br/>
+					joignable par <a href="mailto:${req.body.email}">mail</a><br/>
+					ou par téléphone (<a href="tel:${req.body.telephone}">${req.body.telephone}</a>)<br/><br/>
+					cette personne vous adresse le message suivant:<br/>
+					${req.body.message}<br/><br/>
+					si vous considérez ce message comme inapproprié, faites le nous savoir par le <a href=${process.env.ROOT_URL}/contact>formulaire de contact</a>`,
+		});
+		res.status(200).json({ success: true, message: 'Le propriétaire de l\'annonce a été averti, merci' });
+	} catch (e) {
+		res.status(500).json({ error: e });
+	}
 };
 
 exports.Valide = async (req, res) => {
 	console.log('Valide', req.params.annonce);
-	const annonce = await keystone.list('Annonce').model.findOne({ _id: req.params.annonce });
+	const annonce = await keystone.list('Annonce').model.findById(req.params.annonce);
 	const updater = annonce.getUpdateHandler(req);
 	updater.process({ validee: true }, {
 		flashErrors: true,
@@ -35,6 +54,12 @@ exports.Valide = async (req, res) => {
 		if (err) {
 			res.status(500).json({ error: err });
 		} else {
+			sendMail.sendMail({
+				to: annonce.email,
+				subject: 'Votre annonce a été acceptée',
+				text: `Votre annonce: ${annonce.titre} est validée sur le site d'entre aide de Valmondois, Merci !`,
+				html: `Votre annonce: ${annonce.titre} est validée sur le site d'entre aide de Valmondois, Merci !`,
+			});
 			res.status(200).json({ success: true, message: 'Annonce validée' });
 		}
 	});

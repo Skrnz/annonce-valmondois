@@ -24,4 +24,5 @@ exports = module.exports = function (app) {
 	app.post('/api/envoyer/:annonce', routes.api.annonce.Envoyer);
 	app.get('/api/valide/:annonce', routes.api.annonce.Valide);
 	app.get('/api/delete/:annonce', routes.api.annonce.Delete);
+	app.post('/api/request', routes.api.contact.update);
 };
