@@ -20,9 +20,6 @@ exports.Save = (req, res) => {
 };
 
 exports.Envoyer = async (req, res) => {
-	console.log('req.params', req.params);
-	console.log('req.body', req.body);
-
 	try {
 		const annonce = await keystone.list('Annonce').model.findByIdAndUpdate(req.params.annonce, { $inc: { nbClick: 1 } });
 		sendMail.sendMail({
