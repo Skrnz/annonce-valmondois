@@ -15,11 +15,14 @@
   color: #ff0000;
   padding-left: 5px; }
 
-.Offre {
+.offre {
   background-color: #ecfff3; }
 
-.Demande {
+.demande {
   background-color: #ffecee; }
+
+.bon-plan {
+  background-color: #ffe4aa; }
 
 .entete {
   text-align: center;

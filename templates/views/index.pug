@@ -1,6 +1,6 @@
 extends ../layouts/default
 
-mixin annonce(annonce)
+mixin annonce(annonce, contact)
 	- var quartier
 	case annonce.quartier
 		when 'PAL'
@@ -20,7 +20,7 @@ mixin annonce(annonce)
 		default
 			- quartier = 'Inconnu'
 
-	.card.mb-3(class= annonce.type)
+	.card.mb-3(class= _.kebabCase(annonce.type))
 		.card-body
 			.container-fluid
 				h3= annonce.titre
@@ -29,7 +29,10 @@ mixin annonce(annonce)
 					= annonce._.dateDepot.format('DD/MM')
 				.ruban
 					= quartier
-			button.btn.btn-block.btn-outline-dark(type="button", data-toggle="modal", data-target="#modalContact", data-annonce= annonce.id) Contacter l'annonceur
+			if contact
+				button.btn.btn-block.btn-outline-dark(type="button", data-toggle="modal", data-target="#modalContact", data-annonce= annonce.id) Contacter l'annonceur
+			else
+				p.mt-2.mb-2 &nbsp;
 
 block content
 	.container
@@ -40,16 +43,21 @@ block content
 			p Proposez vos services ou répondez aux annonces en cas de besoin ..
 			p Dans tous les cas, faites très attention à bien respecter le confinement et les « gestes barrière » le virus ne doit pas gagner !
 		.row
-			.col-lg-6
+			.col-lg-4
 				h2.entete Offres
 				each annonce in data.annonces
 					if annonce.type == 'Offre'
-						+annonce(annonce)
-			.col-lg-6
+						+annonce(annonce, true)
+			.col-lg-4
 				h2.entete Demandes
 				each annonce in data.annonces
 					if annonce.type == 'Demande'
-						+annonce(annonce)
+						+annonce(annonce, true)
+			.col-lg-4
+				h2.entete Bons plans
+				each annonce in data.annonces
+					if annonce.type == 'Bon plan'
+						+annonce(annonce, false)
 
 	.modal.fade#modalContact(tabindex="-1", role="dialog", aria-labelledby="titreModal", aria-hidden="true")
 		.modal-dialog.modal-dialog-centered.modal-lg(role="document")

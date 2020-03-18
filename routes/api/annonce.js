@@ -26,7 +26,7 @@ exports.Envoyer = async (req, res) => {
 			to: annonce.email,
 			subject: `Votre annonce ${annonce.titre} intéresse quelqu'un`,
 			text: `Votre annonce: ${annonce.titre} intéresse ${req.body.prenom} ${req.body.nom}, joignable par mail (${req.body.email}) ou par téléphone (${req.body.telephone})\n\n${req.body.message}`,
-			html: `Votre annonce: ${annonce.titre} intéresse ${req.body.prenom} ${req.body.nom}<br/>
+			html: `Votre annonce: <strong>${annonce.titre}</strong> intéresse <strong>${req.body.prenom} ${req.body.nom}</strong><br/>
 					joignable par <a href="mailto:${req.body.email}">mail</a><br/>
 					ou par téléphone (<a href="tel:${req.body.telephone}">${req.body.telephone}</a>)<br/><br/>
 					cette personne vous adresse le message suivant:<br/>
@@ -55,7 +55,7 @@ exports.Valide = async (req, res) => {
 				to: annonce.email,
 				subject: 'Votre annonce a été acceptée',
 				text: `Votre annonce: ${annonce.titre} est validée sur le site d'entre aide de Valmondois, Merci !`,
-				html: `Votre annonce: ${annonce.titre} est validée sur le site d'entre aide de Valmondois, Merci !`,
+				html: `Votre annonce: <strong>${annonce.titre}</strong> est validée sur le site d'entre aide de Valmondois, Merci !`,
 			});
 			res.status(200).json({ success: true, message: 'Annonce validée' });
 		}
