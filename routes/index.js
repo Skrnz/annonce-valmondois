@@ -17,6 +17,7 @@ exports = module.exports = function (app) {
 	// Views
 	app.get('/', routes.views.index);
 	app.get('/depos', routes.views.depos);
+	app.get('/contact', routes.views.contact);
 	app.get('/listeannonces', routes.views.liste);
 
 	app.post('/api/validation', routes.api.annonce.Save);

@@ -1,16 +1,74 @@
-#header {
-	margin-top: 30px;
-}
+// layout
 
 #footer {
-	margin-top: 30px;
-	border-top: 1px solid #eeeeee;
-	padding-top: 30px;
-	color: #777777;
+	margin-top: 1.5rem;
+	border-top: $color-bg-lt solid 1px;
 }
 
-.gallery-image img{
-    display: block;
-    max-width: 100%;
-    height: auto;
+.navbar {
+	background-color: $color-bg-lt;
+	.nav-item {
+		font-size: 18px;
+		font-weight: 600;
+		&:hover {
+			background-color: $color-bg-dk;
+		}
+	}
+}
+
+.required {
+	&::after {
+		content: '*';
+		color: #ff0000;
+		padding-left: 5px;
+	}
+}	
+
+// index
+
+.Offre {
+	background-color: $color-offre;
+}
+
+.Demande {
+	background-color: $color-demande;
+}
+
+.entete {
+	text-align: center;
+	padding-bottom: 1rem;
+}
+
+.jumbotron {
+	margin-top: 1rem;
+	background-color: $color-bg-lt;
+}
+
+.card {
+	.date-offre {
+		position: absolute;
+		right: 5px;
+		top: 5px;
+		width: 60px;
+		height: auto;
+		border-radius: 5px;
+		background-color: $color-bg-dk;
+		text-align: center;
+		color: #fff;;
+	}
+
+	.ruban {
+		position: absolute;
+		left: 0;
+		width: 40%;
+		background-color: $color-bg-dk;
+		color: #fff;
+		text-align: center;
+		padding: 5px 0;
+		border-radius: 0 5px 5px 0;
+		margin-top: 10px;
+	}
+	button {
+		margin-top: 56px;
+	}
 }

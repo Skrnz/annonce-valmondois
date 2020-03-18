@@ -3,46 +3,17 @@ extends ../layouts/default
 block content
 	.container
 		.jumbotron
-			h1 Déposez ici votre annonce
-			p les annonces sont modérées avant d"être publiées
+			h1 Pour nous contacter
+			p Si vous désirez supprimer votre annonce ou la modifier, ou si vous avez des questions, merci d'utiliser ce formulaire de contact
+			p n'oubliez pas de préciser quelle annonce (date et titre seront utiles)
 		.row
 			.col-lg-12
 				form#contact-form(novalidate)
 					.container
 						.form-row
 							.col-lg-12
-								h2 Votre annonce
-							.col
-								.form-group
-									label.required(for="typeAnnonce") Type d'annonce
-									select.form-control.form-control-lg#typeAnnonce
-										option(value="Offre") Offre de service
-										option(value="Demande") Demande d"aide
-							.col
-								.form-group
-									label.required(for="titre") Titre de votre annonce
-									input.form-control.form-control-lg(type="text", placeholder="Titre", required, id = "titre")
-									.invalid-feedback Le titre est nécessaire pour afficher votre annonce
-							.col-lg-12
-								.form-group
-									label.required(for="annonce") Votre annonce
-									textarea.form-control#message(rows="6", required)
-									.invalid-feedback Il faut décrire ce que vous attendez ou proposez !
-							.col
-								.form-group
-									label.required(for="typeAnnonce") J'habite dans ce quartier
-									select.form-control.form-control-lg#quartier
-										option(value="PAL") Port au loup
-										option(value="CENTRE") Centre village
-										option(value="NAZE") La Naze
-										option(value="BUTRY") Butry s/Oise
-										option(value="NESLES") Nesles la valée
-										option(value="PARMAIN") Parmain
-										option(value="LOIN") plus loin
-
-						.form-row
-							.col-lg-12
 								h2 A propos de vous
+								p pour qu'on puisse vous répondre !
 							.col
 								.form-group
 									label.required(for="prenom") Prénom
@@ -56,13 +27,18 @@ block content
 							.col
 								.form-group
 									label.required(for="email") Email
-									input.form-control#email(type="email", placeholder="Email Address", required)
+									input.form-control#email(type="email", placeholder="Votre Email", required)
 									.invalid-feedback Il faut pouvoir vous contacter
 							.col
 								.form-group
-									label.required(for="telephone") Téléphone
-									input.form-control#telephone(type="phone", placeholder="Téléphone", required)
-									.invalid-feedback Il faut pouvoir vous contacter
+									label(for="telephone") Téléphone
+									input.form-control#telephone(type="phone", placeholder="Téléphone")
+						.form-row
+							.col-lg-12
+								h2.required Votre demande
+								.form-group
+									textarea.form-control#message(rows="6", required)
+									.invalid-feedback Il faut décrire ce que vous attendez ou proposez !
 						.form-row
 							.col.justify-content-end
 								button.btn.btn-primary(type="submit") Envoyer
@@ -102,18 +78,11 @@ block js
 			}
 			var $inputs = $form.find("input, button, select, textarea");
 			$inputs.prop("disabled", true);
-			const ta  = document.getElementById("typeAnnonce");
-			const typea = ta.options[ta.selectedIndex].value;
-			const q = document.getElementById("quartier");
-			const quartier = q.options[q.selectedIndex].value;
 			request = $.ajax({
-				url:"/api/validation",
+				url:"/api/request",
 				type: "post",
 				data : {
-					type: typea,
-					titre: $("#titre").val(),
 					message: $("#message").val(),
-					quartier: quartier,
 					prenom: $("#prenom").val(),
 					nom: $("#nom").val(),
 					email: $("#email").val(),
