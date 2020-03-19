@@ -1,6 +1,6 @@
 extends ../layouts/default
 
-mixin annonce(annonce, contact)
+mixin annonce(annonce)
 	- var quartier
 	case annonce.quartier
 		when 'PAL'
@@ -29,7 +29,7 @@ mixin annonce(annonce, contact)
 					= annonce._.dateDepot.format('DD/MM')
 				.ruban
 					= quartier
-			if contact
+			if annonce.type != 'Bon plan'
 				button.btn.btn-block.btn-outline-dark(type="button", data-toggle="modal", data-target="#modalContact", data-annonce= annonce.id) Contacter l'annonceur
 			else
 				p.mt-2.mb-2 &nbsp;
@@ -42,22 +42,17 @@ block content
 			p Il s’agit de se dépanner mutuellement pour garder les enfants, faire du jardinage, ou organiser un service de courses..
 			p Proposez vos services ou répondez aux annonces en cas de besoin ..
 			p Dans tous les cas, faites très attention à bien respecter le confinement et les « gestes barrière » le virus ne doit pas gagner !
-		.row
-			.col-lg-4
-				h2.entete Offres
-				each annonce in data.annonces
-					if annonce.type == 'Offre'
-						+annonce(annonce, true)
-			.col-lg-4
-				h2.entete Demandes
-				each annonce in data.annonces
-					if annonce.type == 'Demande'
-						+annonce(annonce, true)
-			.col-lg-4
-				h2.entete Bons plans
-				each annonce in data.annonces
-					if annonce.type == 'Bon plan'
-						+annonce(annonce, false)
+			strong les catégories de message :
+			.row
+				.col-lg-4
+					a.btn.btn-block.offre(href="#") Offres
+				.col-lg-4
+					a.btn.btn-block.demande(href="#") Demandes
+				.col-lg-4
+					a.btn.btn-block.bon-plan(href="#") Bons plans
+		.card-columns
+			each annonce in data.annonces
+				+annonce(annonce)
 
 	.modal.fade#modalContact(tabindex="-1", role="dialog", aria-labelledby="titreModal", aria-hidden="true")
 		.modal-dialog.modal-dialog-centered.modal-lg(role="document")
