@@ -13,7 +13,7 @@ var Annonce = new keystone.List('Annonce', {
 Annonce.add({
 	titre: { type: String, required: true },
 	type: { type: Types.Select, options: 'Offre, Demande, Bon plan' },
-	quartier: { type: Types.Select, options: 'PAL, CENTRE, NAZE, BUTRY, NESLES, PARMAIN, LOIN' },
+	quartier: { type: Types.Select, options: 'PAL, CENTRE, NAZE, BUTRY, NESLES, PARMAIN, SITE, LOIN' },
 	message: { type: Types.Textarea, height: 400 },
 	nom: { type: String },
 	prenom: { type: String },

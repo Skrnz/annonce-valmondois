@@ -5,6 +5,7 @@ block content
 		.jumbotron
 			h1 Déposez ici votre annonce
 			p les annonces sont modérées avant d"être publiées
+			p ne mentionnez pas votre nom ou vos coordonnées dans le texte de l'annonce. Le mécanisme de mise en copntact préserve votre tranquilité !
 		.row
 			.col-lg-12
 				form#contact-form(novalidate)
@@ -17,7 +18,7 @@ block content
 									label.required(for="typeAnnonce") Type d'annonce
 									select.form-control.form-control-lg#typeAnnonce
 										option(value="Offre") Offre de service
-										option(value="Demande") Demande d"aide
+										option(value="Demande") Demande d'aide
 										option(value="Bon plan") Bon plan à partager
 							.col
 								.form-group
@@ -39,7 +40,8 @@ block content
 										option(value="BUTRY") Butry s/Oise
 										option(value="NESLES") Nesles la valée
 										option(value="PARMAIN") Parmain
-										option(value="LOIN") plus loin
+										option(value="LOIN") Plus loin
+										option(value="SITE") En ligne
 
 						.form-row
 							.col-lg-12
