@@ -1,4 +1,18 @@
 const nodemailer = require('nodemailer');
+var keystone = require('keystone');
+
+exports.sendMailToAdmins = ({ subject, text, html }) => {
+	keystone.list('User').model.find({ isAdmin: true }).exec((err, result) => {
+		result.forEach(user => {
+			this.sendMail({
+				to: user.email,
+				subject: subject,
+				text: text,
+				html: html,
+			});
+		});
+	});
+};
 
 exports.sendMail = ({ to, subject, text, html }) => {
 	const transporter = nodemailer.createTransport({

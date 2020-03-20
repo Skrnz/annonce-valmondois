@@ -1,0 +1,33 @@
+extends ../layouts/default
+
+block content
+	.container
+		if !data.message
+			.jumbotron
+				h1 Signalement
+				p Le message signalé est introuvable
+		else
+			.jumbotron
+				h1 Signalement
+				p Vous avez reçu une demande inappropriée de la part de
+					strong= ['',data.message.prenom,data.message.nom, ''].join(' ')
+					| et nous mettrons tout en oeuvre pour vous protéger.
+				p Pouvez-vous nous en préciser la raison ?
+			.row
+				.col-lg-12
+					form#signalement-form(novalidate)
+						.container
+							.form-row
+								.col-lg-12
+									h2.required Les raisons de votre signalement
+									input#signalement_id(type="hidden", value=data.signalement)
+									.form-group
+										textarea.form-control#message(rows="6", required)
+										.invalid-feedback Merci de préciser la raison de ce signalement
+							.form-row
+								.col.justify-content-end
+									button.btn.btn-primary(type="submit") Envoyer
+					.alert#result
+
+block js
+	script(src="/js/signalement.js")

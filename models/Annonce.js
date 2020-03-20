@@ -39,27 +39,22 @@ Annonce.schema.methods.sendNotificationEmail = function () {
 	const annonce = this;
 	console.log('sendNotificationEmail');
 	// envoie un mail à tous les admins du site
-	keystone.list('User').model.find({ isAdmin: true }).exec((err, result) => {
-		result.forEach(user => {
-			sendMail.sendMail({
-				to: user.email,
-				subject: 'Nouvelle annonce à modérer',
-				text: `Annonce: Nom : ${annonce.prenom} ${annonce.nom}, Email : ${annonce.email}, Téléphone : ${annonce.telephone}, Titre: ${annonce.titre}, Message : ${annonce.message}, lien: ${process.env.ROOT_URL}/keystone/annonces/${annonce._id}`,
-				html: `Nouvelle annonce sur le site d'entre aide
-					<ul>
-						<li>Prénom : ${annonce.prenom}</li>
-						<li>Nom : ${annonce.nom}</li>
-						<li>Email : ${annonce.email}</li>
-						<li>Téléphone : ${annonce.telephone}</li>
-						<li>Type d'annonce : ${annonce.type}</li>
-						<li>Titre : ${annonce.titre}</li>
-						<li>Message : ${annonce.message}</li>
-						<li>Quartier : ${annonce.quartier}</li>
-						<li>Lien pour la modifier : <a href=${process.env.ROOT_URL}/keystone/annonces/${annonce._id}>Modifier</a></li>
-					</ul>
-					Si elle semble convenable, la valider directement en cliquant ce lien <a href="${process.env.ROOT_URL}/api/valide/${annonce._id}">Valider</a>`,
-			});
-		});
+	sendMail.sendMailToAdmins({
+		subject: 'Nouvelle annonce à modérer',
+		text: `Annonce: Nom : ${annonce.prenom} ${annonce.nom}, Email : ${annonce.email}, Téléphone : ${annonce.telephone}, Titre: ${annonce.titre}, Message : ${annonce.message}, lien: ${process.env.ROOT_URL}/keystone/annonces/${annonce._id}`,
+		html: `Nouvelle annonce sur le site d'entre aide
+			<ul>
+				<li>Prénom : ${annonce.prenom}</li>
+				<li>Nom : ${annonce.nom}</li>
+				<li>Email : ${annonce.email}</li>
+				<li>Téléphone : ${annonce.telephone}</li>
+				<li>Type d'annonce : ${annonce.type}</li>
+				<li>Titre : ${annonce.titre}</li>
+				<li>Message : ${annonce.message}</li>
+				<li>Quartier : ${annonce.quartier}</li>
+				<li>Lien pour la modifier : <a href=${process.env.ROOT_URL}/keystone/annonces/${annonce._id}>Modifier</a></li>
+			</ul>
+			Si elle semble convenable, la valider directement en cliquant ce lien <a href="${process.env.ROOT_URL}/api/valide/${annonce._id}">Valider</a>`,
 	});
 };
 

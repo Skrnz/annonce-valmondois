@@ -19,10 +19,12 @@ exports = module.exports = function (app) {
 	app.get('/depos', routes.views.depos);
 	app.get('/contact', routes.views.contact);
 	app.get('/listeannonces', routes.views.liste);
+	app.get('/signalement/:message', routes.views.signalement);
 
 	app.post('/api/validation', routes.api.annonce.Save);
 	app.post('/api/envoyer/:annonce', routes.api.annonce.Envoyer);
 	app.get('/api/valide/:annonce', routes.api.annonce.Valide);
 	app.get('/api/delete/:annonce', routes.api.annonce.Delete);
 	app.post('/api/request', routes.api.contact.update);
+	app.post('/api/signalement', routes.api.signalement.signaler);
 };

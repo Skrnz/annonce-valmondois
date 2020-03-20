@@ -22,6 +22,15 @@ exports.Save = (req, res) => {
 exports.Envoyer = async (req, res) => {
 	try {
 		const annonce = await keystone.list('Annonce').model.findByIdAndUpdate(req.params.annonce, { $inc: { nbClick: 1 } });
+		// sauvegarde message
+		const message = await keystone.list('Message').model.create({
+			nom: req.body.nom,
+			prenom: req.body.prenom,
+			telephone: req.body.telephone,
+			email: req.body.email,
+			message: req.body.message,
+			annonce: req.params.annonce,
+		});
 		sendMail.sendMail({
 			to: annonce.email,
 			subject: `Votre annonce ${annonce.titre} intéresse quelqu'un`,
@@ -31,7 +40,8 @@ exports.Envoyer = async (req, res) => {
 					ou par téléphone (<a href="tel:${req.body.telephone}">${req.body.telephone}</a>)<br/><br/>
 					cette personne vous adresse le message suivant:<br/>
 					${req.body.message}<br/><br/>
-					si vous considérez ce message comme inapproprié, faites le nous savoir par le <a href=${process.env.ROOT_URL}/contact>formulaire de contact</a>`,
+					Si vous considérez ce message comme inapproprié, cliquez <a href="${process.env.ROOT_URL}/signalement/${message._id}">ici</a><br/>
+					ou faites le nous savoir par le <a href="${process.env.ROOT_URL}/contact">formulaire de contact</a>`,
 		});
 		res.status(200).json({ success: true, message: 'Le propriétaire de l\'annonce a été averti, merci' });
 	} catch (e) {
