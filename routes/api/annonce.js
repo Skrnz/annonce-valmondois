@@ -40,7 +40,7 @@ exports.Envoyer = async (req, res) => {
 					ou par téléphone (<a href="tel:${req.body.telephone}">${req.body.telephone}</a>)<br/><br/>
 					cette personne vous adresse le message suivant:<br/>
 					${req.body.message}<br/><br/>
-					Si vous considérez ce message comme inapproprié, cliquez <a href="${process.env.ROOT_URL}/signalement/${message._id}">ici</a><br/>
+					Si vous considérez ce message comme inapproprié, vous pouvez le signaler en cliquant <a href="${process.env.ROOT_URL}/signalement/${message._id}">ici</a><br/>
 					ou faites le nous savoir par le <a href="${process.env.ROOT_URL}/contact">formulaire de contact</a>`,
 		});
 		res.status(200).json({ success: true, message: 'Le propriétaire de l\'annonce a été averti, merci' });
