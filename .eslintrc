@@ -1,3 +1,4 @@
 {
-    "extends": "keystone"
+	"extends": "keystone",
+	"linebreak-style": ["error", "windows"]
 }

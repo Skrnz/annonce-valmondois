@@ -33,6 +33,7 @@ exports.Envoyer = async (req, res) => {
 		});
 		sendMail.sendMail({
 			to: annonce.email,
+			replyTo: req.body.email,
 			subject: `Votre annonce ${annonce.titre} intéresse quelqu'un`,
 			text: `Votre annonce: ${annonce.titre} intéresse ${req.body.prenom} ${req.body.nom}, joignable par mail (${req.body.email}) ou par téléphone (${req.body.telephone})\n\n${req.body.message}`,
 			html: `Votre annonce: <strong>${annonce.titre}</strong> intéresse <strong>${req.body.prenom} ${req.body.nom}</strong><br/>

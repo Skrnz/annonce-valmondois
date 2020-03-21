@@ -25,7 +25,7 @@ exports.sendMail = ({ to, subject, text, html }) => {
 		},
 	});
 	const mailOptions = {
-		from: 'nepasrepondre@valmondois.fr',
+		from: 'valmondois-entr-aide@valmondois.fr',
 		to: to,
 		subject: subject,
 		text: text,
