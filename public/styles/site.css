@@ -32,27 +32,33 @@
   margin-top: 1rem;
   background-color: #deefff; }
 
-.card .date-offre {
-  position: absolute;
-  right: 5px;
-  top: 5px;
-  width: 60px;
-  height: auto;
-  border-radius: 5px;
-  background-color: #61b3ff;
-  text-align: center;
-  color: #fff; }
+.card {
+  transition: height 1s, transform 1s; }
+  .card .date-offre {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 60px;
+    height: auto;
+    border-radius: 5px;
+    background-color: #61b3ff;
+    text-align: center;
+    color: #fff; }
+  .card .ruban {
+    position: absolute;
+    left: 0;
+    width: 40%;
+    background-color: #61b3ff;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 0 5px 5px 0;
+    margin-top: 10px; }
+  .card button {
+    margin-top: 56px; }
 
-.card .ruban {
-  position: absolute;
-  left: 0;
-  width: 40%;
-  background-color: #61b3ff;
-  color: #fff;
-  text-align: center;
-  padding: 5px 0;
-  border-radius: 0 5px 5px 0;
-  margin-top: 10px; }
-
-.card button {
-  margin-top: 56px; }
+.text-annonce {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical; }

@@ -1,7 +1,7 @@
 extends ../layouts/default
 
 block content
-	.container
+	.container.liste
 		.row
 			.col-lg-12
 				h1 Liste des annonces
@@ -21,13 +21,14 @@ block content
 							td
 								p= annonce.type
 								p= annonce.quartier
+								p= annonce.nbClick
 							td
 								p= annonce.prenom + ' ' + annonce.nom
 								p= annonce.email
 								p= annonce.telephone
 							td
 								h5= annonce.titre
-								p= annonce.message
+								p.text-annonce= annonce.message
 							if annonce.validee
 								td.bg-success
 									span.text-white En ligne
