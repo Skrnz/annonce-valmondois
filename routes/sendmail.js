@@ -14,7 +14,7 @@ exports.sendMailToAdmins = ({ subject, text, html }) => {
 	});
 };
 
-exports.sendMail = ({ to, subject, text, html }) => {
+exports.sendMail = ({ from, to, subject, text, html, replyTo }) => {
 	const transporter = nodemailer.createTransport({
 		host: process.env.EMAIL_CONFIGURATION_SMTP || 'smtp.online.net',
 		port: parseInt(process.env.EMAIL_CONFIGURATION_PORT) || 587,
@@ -24,12 +24,15 @@ exports.sendMail = ({ to, subject, text, html }) => {
 			pass: process.env.EMAIL_CONFIGURATION_PWD || 'WSConseil2008',
 		},
 	});
+	const adrEmail = 'Ne pas répondre <valmondois-entr-aide@valmondois.fr>';
 	const mailOptions = {
-		from: 'valmondois-entr-aide@valmondois.fr',
+		from: from || adrEmail,
+		sender: from || adrEmail,
 		to: to,
 		subject: subject,
 		text: text,
 		html: html,
+		replyTo: replyTo || adrEmail,
 	};
 	transporter.sendMail(mailOptions, (err, info) => {
 		if (err) {
