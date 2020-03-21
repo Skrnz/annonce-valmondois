@@ -22,12 +22,13 @@ block content
 								p= signalement.annonce.prenom + ' ' + signalement.annonce.nom
 								p= signalement.annonce.email
 							td
-								p= signalement.message
+								p.text-annonce= signalement.message
 							td
 								p= signalement.prenom + ' ' + signalement.nom
 								p= signalement.email
 								p= signalement.telephone
 							td
-								p= signalement.raison
+								p.text-annonce= signalement.raison
 
-
+block js
+	script(src="/js/ellipsis.js")
