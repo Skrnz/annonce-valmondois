@@ -59,6 +59,15 @@ block content
 						a.btn.offre(href="#") Offres
 						a.btn.demande(href="#") Demandes
 						a.btn.bon-plan(href="#") Bons plans
+			p.text-info.mt-2
+				| A l'itiative de l'
+				strong APEV
+				| , une rubrique
+				em &nbsp;
+					strong dessins
+				| &nbsp;a été ajoutée
+				button.btn.btn-outline-info.btn-sm.ml-5(rel="popover") Plus d'informations
+				
 		ul.nav.nav-tabs.nav-justified#pills-tab(role="tablist")
 			li.nav-item
 				a.nav-link.active#pill-annonce(data-toggle="pill", href="#pills-annonce", role="tab") Les annonces
@@ -122,6 +131,8 @@ block content
 					.modal-footer
 						button(type="button", class="btn btn-secondary", data-dismiss="modal") Abandonner
 						input#submit(type="submit", class="btn btn-primary")
+	#texte-apev(style="display: none")
+		include ../mixins/texte-apev
 
 block js
 	script.
@@ -132,6 +143,13 @@ block js
 			$("#titreModalDessin").text(titre);
 			$("#imageModalDessin").attr("src", src);
 		});
-
+		$(document).ready(function () {
+			$('body').popover({
+				selector: '[rel=popover]',
+				content: function() { return $("#texte-apev").html(); },
+				placement: "bottom",
+				html: true
+			});
+		});
 	script(src="/js/index.js")
 	script(src="/js/ellipsis.js")

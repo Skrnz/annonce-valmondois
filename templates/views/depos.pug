@@ -4,8 +4,7 @@ block content
 	.container
 		.jumbotron
 			h1 Déposez ici votre annonce ou un dessin
-			p.text-success A l'initiative de l'APEV, les enfants de Valmondois proposent des dessins pour egayer un peu votre journée !
-			p les annonces et dessins sont modérés avant d"être publiées
+			p les annonces et dessins sont modérés avant d'être publiées
 			p ne mentionnez pas votre nom ou vos coordonnées dans le message
 		ul.nav.nav-tabs.nav-justified#pills-tab(role="tablist")
 			li.nav-item
@@ -79,6 +78,8 @@ block content
 									.col.justify-content-end
 										button.btn.btn-primary(type="submit") Envoyer
 			.tab-pane.fade#pills-dessin(role="tabpanel")
+				.alert.alert-info
+					include ../mixins/texte-apev
 				.row
 					.col-lg-12
 						form#dessin-form(novalidate, enctype="multipart/form-data")

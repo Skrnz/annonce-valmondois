@@ -13,3 +13,5 @@ Il a la possibilité de signaler un message et dans ce cas les administrateurs s
 C'est un projet sans grande prétention mais qui trouve une réelle utilité (adoption rapide chez nous) dans cette période troublée.
 
 Il peut donc être utile à toutes les petites communes qui souhaitent mettre en place un service similaire.
+
+Une section "dessins" a été ajoutée pour permettre la publication de dessins d'enfants à destination de personnes agées (demande de l'association de parents d'élèves)
