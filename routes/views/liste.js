@@ -10,11 +10,18 @@ exports = module.exports = function (req, res) {
 	locals.section = 'liste';
 	locals.data = {
 		annonces: [],
+		dessins: [],
 	};
 
 	view.on('init', next => {
 		keystone.list('Annonce').model.find().sort('-dateDepot').exec((err, result) => {
 			locals.data.annonces = result;
+			next(err);
+		});
+	});
+	view.on('init', next => {
+		keystone.list('Dessin').model.find().sort('-dateDepot').exec((err, result) => {
+			locals.data.dessins = result;
 			next(err);
 		});
 	});

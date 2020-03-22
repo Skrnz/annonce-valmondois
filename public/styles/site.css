@@ -34,16 +34,18 @@
 
 .card {
   transition: height 1s, transform 1s; }
+  .card h3 {
+    margin-top: 0.25em; }
   .card .date-offre {
     position: absolute;
-    right: 5px;
-    top: 5px;
+    right: 3px;
+    top: 3px;
     width: 60px;
     height: auto;
-    border-radius: 5px;
-    background-color: #61b3ff;
-    text-align: center;
-    color: #fff; }
+    border-radius: 3px;
+    background-color: transparent;
+    border: 1px solid #212529;
+    text-align: center; }
   .card .ruban {
     position: absolute;
     left: 0;
@@ -62,3 +64,12 @@
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical; }
+
+.custom-file-input ~ .custom-file-label::after {
+  content: "Choisir..."; }
+
+#image-dessin {
+  max-width: 100%; }
+
+#modalDessin img {
+  max-width: 100%; }

@@ -2,44 +2,88 @@ extends ../layouts/default
 
 block content
 	.container.liste
-		.row
-			.col-lg-12
-				h1 Liste des annonces
-		.row
-			table.table.table-hover
-				thead
-					th(scope="col") date
-					th(scope="col") type
-					th(scope="col") déposant
-					th(scope="col") annonce
-					th(scope="col") status
-					th(scope="col") action
-				tbody
-					each annonce in data.annonces
-						tr
-							th(scope="row")= annonce._.dateDepot.format('DD/MM/YYYY H:mm')
-							td
-								p= annonce.type
-								p= annonce.quartier
-								p= annonce.nbClick
-							td
-								p= annonce.prenom + ' ' + annonce.nom
-								p= annonce.email
-								p= annonce.telephone
-							td
-								h5= annonce.titre
-								p.text-annonce= annonce.message
-							if annonce.validee
-								td.bg-success
-									span.text-white En ligne
-							else
-								td.bg-danger
-									span.text-white A modérer
-							td
-								.btn-group(role="group")
-									button.btn.btn-success.btn-action(type="button", data-annonce= "/api/valide/" + annonce.id) Valider
-									a.btn.btn-warning.btn-action(type="button", href= "/keystone/annonces/" + annonce.id) modifier
-									button.btn.btn-danger.btn-action(type="button", data-annonce= "/api/delete/" + annonce.id) Supprimer
+		ul.nav.nav-tabs.nav-justified.mt-3.mb-3#pills-tab(role="tablist")
+			li.nav-item
+				a.nav-link.active#pill-annonce(data-toggle="pill", href="#pills-annonce", role="tab") Les annonces
+			li.nav-item
+				a.nav-link#pill-dessin(data-toggle="pill", href="#pills-dessin", role="tab") Les dessins
+		.tab-content#pills-tabContent
+			.tab-pane.fade.show.active#pills-annonce(role="tabpanel")
+				.row
+					.col-lg-12
+						h1 Liste des annonces
+				.row
+					table.table.table-hover
+						thead
+							th(scope="col") date
+							th(scope="col") type
+							th(scope="col") déposant
+							th(scope="col") annonce
+							th(scope="col") status
+							th(scope="col") action
+						tbody
+							each annonce in data.annonces
+								tr
+									th(scope="row")= annonce._.dateDepot.format('DD/MM/YYYY H:mm')
+									td
+										p= annonce.type
+										p= annonce.quartier
+										p= annonce.nbClick
+									td
+										p= annonce.prenom + ' ' + annonce.nom
+										p= annonce.email
+										p= annonce.telephone
+									td
+										h5= annonce.titre
+										p.text-annonce= annonce.message
+									if annonce.validee
+										td.bg-success
+											span.text-white En ligne
+									else
+										td.bg-danger
+											span.text-white A modérer
+									td
+										.btn-group(role="group")
+											button.btn.btn-success.btn-action(type="button", data-annonce= "/api/valide/" + annonce.id) Valider
+											a.btn.btn-warning.btn-action(type="button", href= "/keystone/annonces/" + annonce.id) modifier
+											button.btn.btn-danger.btn-action(type="button", data-annonce= "/api/delete/" + annonce.id) Supprimer
+			.tab-pane#pills-dessin(role="tabpanel")
+				.row
+					.col-lg-12
+						h1 Liste des dessins
+				.row
+					table.table.table-hover
+						thead
+							th(scope="col") date
+							th(scope="col") déposant
+							th(scope="col") dessin
+							th(scope="col") message
+							th(scope="col") status
+							th(scope="col") action
+						tbody
+							each dessin in data.dessins
+								tr
+									th(scope="row")= dessin._.dateDepot.format('DD/MM/YYYY H:mm')
+									td
+										p= dessin.prenom + ' ' + dessin.nom
+										p= dessin.email
+										p= dessin.telephone
+									td
+										img.img-responsive(src= dessin._.dessin.fit(300, 200))
+									td
+										h5= dessin.titre
+										p.text-annonce= dessin.message
+									if dessin.valide
+										td.bg-success
+											span.text-white En ligne
+									else
+										td.bg-danger
+											span.text-white A modérer
+									td
+										.btn-group(role="group")
+											button.btn.btn-success.btn-action(type="button", data-annonce= "/api/validedessin/" + dessin.id) Valider
+											a.btn.btn-warning.btn-action(type="button", href= "/keystone/dessins/" + dessin.id) modifier
+											button.btn.btn-danger.btn-action(type="button", data-annonce= "/api/deletedessin/" + dessin.id) Supprimer
 
 block js
 	script(src="/js/liste.js")

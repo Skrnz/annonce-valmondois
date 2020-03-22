@@ -36,6 +36,15 @@ mixin annonce(annonce)
 			else
 				p.mt-2.mb-2 &nbsp;
 
+mixin dessin(dessin)
+	.card.mb-3
+		.card-body
+			.container-fluid
+				a(href="#", data-toggle="modal", data-target="#modalDessin", data-source=dessin._.dessin.src(), data-titre=dessin.titre)
+					img.card-img-top(src=dessin._.dessin.src())
+				h5= dessin.titre
+				.text-dessin= dessin.message
+
 block content
 	.container
 		.jumbotron
@@ -50,10 +59,33 @@ block content
 						a.btn.offre(href="#") Offres
 						a.btn.demande(href="#") Demandes
 						a.btn.bon-plan(href="#") Bons plans
-		.card-columns
-			each annonce in data.annonces
-				+annonce(annonce)
+		ul.nav.nav-tabs.nav-justified#pills-tab(role="tablist")
+			li.nav-item
+				a.nav-link.active#pill-annonce(data-toggle="pill", href="#pills-annonce", role="tab") Les annonces
+			li.nav-item
+				a.nav-link#pill-dessin(data-toggle="pill", href="#pills-dessin", role="tab") Les dessins
+		.alert#result
+		.tab-content#pills-tabContent
+			.tab-pane.fade.show.active#pills-annonce(role="tabpanel")
+				.card-columns
+					each annonce in data.annonces
+						+annonce(annonce)
+			.tab-pane.fade#pills-dessin(role="tabpanel")
+				.card-columns
+					each dessin in data.dessins
+						+dessin(dessin)
 
+	.modal.fade#modalDessin(tabindex="-1", role="dialog", aria-labelledby="titreModal", aria-hidden="true")
+		.modal-dialog.modal-dialog-centered.modal-lg(role="document")
+			.modal-content
+				.modal-header
+					h5.modal-title#titreModalDessin
+					button(type="button", class="close", data-dismiss="modal", aria-label="Close")
+					span(aria-hidden="true") &times;
+				.modal-body.text-center
+					img#imageModalDessin
+
+	
 	.modal.fade#modalContact(tabindex="-1", role="dialog", aria-labelledby="titreModal", aria-hidden="true")
 		.modal-dialog.modal-dialog-centered.modal-lg(role="document")
 			.modal-content
@@ -92,5 +124,14 @@ block content
 						input#submit(type="submit", class="btn btn-primary")
 
 block js
+	script.
+		$('#modalDessin').on('show.bs.modal', function (event) {
+			var button = $(event.relatedTarget);
+			var titre = button.data('titre');
+			var src = button.data('source');
+			$("#titreModalDessin").text(titre);
+			$("#imageModalDessin").attr("src", src);
+		});
+
 	script(src="/js/index.js")
 	script(src="/js/ellipsis.js")

@@ -19,6 +19,8 @@ keystone.init({
 	'session': true,
 	'auth': true,
 	'user model': 'User',
+	'cloudinary secure': true,
+	'file limit': '10mb',
 });
 keystone.import('models');
 keystone.set('locals', {
@@ -31,8 +33,8 @@ keystone.set('routes', require('./routes'));
 keystone.set('signin logo', ['/images/Valmondois.png', 100, 100]);
 
 keystone.set('nav', {
+	content: ['annonces', 'dessins', 'contacts', 'messages'],
 	users: 'users',
-	content: ['annonces', 'contacts'],
 });
 
 keystone.start();

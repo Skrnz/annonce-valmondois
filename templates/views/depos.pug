@@ -3,73 +3,136 @@ extends ../layouts/default
 block content
 	.container
 		.jumbotron
-			h1 Déposez ici votre annonce
-			p les annonces sont modérées avant d"être publiées
-			p ne mentionnez pas votre nom ou vos coordonnées dans le texte de l'annonce. Le mécanisme de mise en contact préserve votre tranquilité !
-		.row
-			.col-lg-12
-				form#contact-form(novalidate)
-					.container
-						.form-row
-							.col-lg-12
-								h2 Votre annonce
-							.col
-								.form-group
-									label.required(for="typeAnnonce") Type d'annonce
-									select.form-control.form-control-lg#typeAnnonce
-										option(value="Offre") Offre de service
-										option(value="Demande") Demande d'aide
-										option(value="Bon plan") Bon plan à partager
-							.col
-								.form-group
-									label.required(for="titre") Titre de votre annonce
-									input.form-control.form-control-lg(type="text", placeholder="Titre", required, id = "titre")
-									.invalid-feedback Le titre est nécessaire pour afficher votre annonce
-							.col-lg-12
-								.form-group
-									label.required(for="annonce") Votre annonce
-									textarea.form-control#message(rows="6", required)
-									.invalid-feedback Il faut décrire ce que vous attendez ou proposez !
-							.col
-								.form-group
-									label.required(for="typeAnnonce") J'habite dans ce quartier
-									select.form-control.form-control-lg#quartier
-										option(value="PAL") Port au loup
-										option(value="CENTRE") Centre village
-										option(value="NAZE") La Naze
-										option(value="BUTRY") Butry s/Oise
-										option(value="NESLES") Nesles la valée
-										option(value="PARMAIN") Parmain
-										option(value="LOIN") Plus loin
-										option(value="SITE") En ligne
+			h1 Déposez ici votre annonce ou un dessin
+			p.text-success A l'initiative de l'APEV, les enfants de Valmondois proposent des dessins pour egayer un peu votre journée !
+			p les annonces et dessins sont modérés avant d"être publiées
+			p ne mentionnez pas votre nom ou vos coordonnées dans le message
+		ul.nav.nav-tabs.nav-justified#pills-tab(role="tablist")
+			li.nav-item
+				a.nav-link.active#pill-annonce(data-toggle="pill", href="#pills-annonce", role="tab") Nouvelle annonce
+			li.nav-item
+				a.nav-link#pill-dessin(data-toggle="pill", href="#pills-dessin", role="tab") Nouveau dessin
+		.alert#result
+		.tab-content#pills-tabContent
+			.tab-pane.fade.show.active#pills-annonce(role="tabpanel")
+				.row
+					.col-lg-12
+						form#contact-form(novalidate)
+							.container
+								.form-row
+									.col-lg-12
+										h2 Votre annonce
+									.col
+										.form-group
+											label.required(for="typeAnnonce") Type d'annonce
+											select.form-control.form-control-lg.fc-annonce#typeAnnonce
+												option(value="Offre") Offre de service
+												option(value="Demande") Demande d'aide
+												option(value="Bon plan") Bon plan à partager
+									.col
+										.form-group
+											label.required(for="titre") Titre de votre annonce
+											input.form-control.form-control-lg.fc-annonce(type="text", placeholder="Titre", required, id = "titre")
+											.invalid-feedback Le titre est nécessaire pour afficher votre annonce
+									.col-lg-12
+										.form-group
+											label.required(for="annonce") Votre annonce
+											textarea.form-control.fc-annonce#message(rows="6", required)
+											.invalid-feedback Il faut décrire ce que vous attendez ou proposez !
+									.col
+										.form-group
+											label.required(for="typeAnnonce") J'habite dans ce quartier
+											select.form-control.form-control-lg#quartier
+												option(value="PAL") Port au loup
+												option(value="CENTRE") Centre village
+												option(value="NAZE") La Naze
+												option(value="BUTRY") Butry s/Oise
+												option(value="NESLES") Nesles la valée
+												option(value="PARMAIN") Parmain
+												option(value="LOIN") Plus loin
+												option(value="SITE") En ligne
 
-						.form-row
-							.col-lg-12
-								h2 A propos de vous
-							.col
-								.form-group
-									label.required(for="prenom") Prénom
-									input.form-control#prenom(type="text", placeholder="Votre prénom", required)
-									.invalid-feedback Ce champ est requis
-							.col
-								.form-group
-									label.required(for="nom") Nom
-									input.form-control#nom(type="text", placeholder="Votre nom", required)
-									.invalid-feedback Ce champ est requis
-							.col
-								.form-group
-									label.required(for="email") Email
-									input.form-control#email(type="email", placeholder="Email Address", required)
-									.invalid-feedback Il faut pouvoir vous contacter
-							.col
-								.form-group
-									label.required(for="telephone") Téléphone
-									input.form-control#telephone(type="phone", placeholder="Téléphone", required)
-									.invalid-feedback Il faut pouvoir vous contacter
-						.form-row
-							.col.justify-content-end
-								button.btn.btn-primary(type="submit") Envoyer
-				.alert#result
+								.form-row
+									.col-lg-12
+										h2 A propos de vous
+									.col
+										.form-group
+											label.required(for="prenom") Prénom
+											input.form-control.fc-annonce#prenom(type="text", placeholder="Votre prénom", required)
+											.invalid-feedback Ce champ est requis
+									.col
+										.form-group
+											label.required(for="nom") Nom
+											input.form-control.fc-annonce#nom(type="text", placeholder="Votre nom", required)
+											.invalid-feedback Ce champ est requis
+									.col
+										.form-group
+											label.required(for="email") Email
+											input.form-control.fc-annonce#email(type="email", placeholder="Email Address", required)
+											.invalid-feedback Il faut pouvoir vous contacter
+									.col
+										.form-group
+											label.required(for="telephone") Téléphone
+											input.form-control.fc-annonce#telephone(type="phone", placeholder="Téléphone", required)
+											.invalid-feedback Il faut pouvoir vous contacter
+								.form-row
+									.col.justify-content-end
+										button.btn.btn-primary(type="submit") Envoyer
+			.tab-pane.fade#pills-dessin(role="tabpanel")
+				.row
+					.col-lg-12
+						form#dessin-form(novalidate, enctype="multipart/form-data")
+							.container
+								.form-row
+									.col-lg-12
+										h2 Votre dessin
+									.col-lg-6
+										.form-group
+											label.required(for="titre") Titre de votre dessin
+											input.form-control.fc-dessin.form-control(type="text", placeholder="Titre", required, id = "titre-d")
+											.invalid-feedback Le titre est nécessaire
+									.col-lg-6
+										.form-group
+											label téléchargez votre dessin
+											.input-group
+												.custom-file
+													input.custom-file-input#dessin(type="file", accept="image/*")
+													label.custom-file-label(for="dessin") Sélectionnez un dessin
+									.col-lg-8
+										.form-group
+											label.required(for="annonce") Votre annonce
+											textarea.form-control.fc-dessin#message-d(rows="6", required)
+											.invalid-feedback Il faut décrire ce que vous attendez ou proposez !
+									.col-lg-4
+										img.img-responsive#image-dessin
+								.form-row
+									.col-lg-12
+										h2 A propos de vous
+									.col
+										.form-group
+											label.required(for="prenom") Prénom
+											input.form-control.fc-dessin#prenom-d(type="text", placeholder="Votre prénom", required)
+											.invalid-feedback Ce champ est requis
+									.col
+										.form-group
+											label.required(for="nom") Nom
+											input.form-control.fc-dessin#nom-d(type="text", placeholder="Votre nom", required)
+											.invalid-feedback Ce champ est requis
+									.col
+										.form-group
+											label.required(for="email") Email
+											input.form-control.fc-dessin#email-d(type="email", placeholder="Email Address", required)
+											.invalid-feedback Il faut pouvoir vous contacter
+									.col
+										.form-group
+											label.required(for="telephone") Téléphone
+											input.form-control.fc-dessin#telephone-d(type="phone", placeholder="Téléphone", required)
+											.invalid-feedback Il faut pouvoir vous contacter
+								.form-row
+									.col.justify-content-end
+										button.btn.btn-primary(type="submit") Envoyer
+
 
 block js
 	script(src="/js/depos.js")
+	script(src="/js/dessin.js")

@@ -23,6 +23,12 @@
 		false
 	);
 })();
+
+$('#myTab a').on('click', function (e) {
+	e.preventDefault()
+	$(this).tab('show')
+});
+
 var request;
 $('#contact-form').submit(function (event) {
 	event.preventDefault();
@@ -30,7 +36,7 @@ $('#contact-form').submit(function (event) {
 		request.abort();
 	}
 	var $form = $('#contact-form');
-	var $fc = document.getElementsByClassName('form-control');
+	var $fc = document.getElementsByClassName('fc-annonce');
 	for (var fc = 0; fc < $fc.length; fc++) {
 		if (!$fc[fc].checkValidity()) {
 			$fc[fc].classList.add('is-invalid');

@@ -9,7 +9,9 @@
 				url = button.data('annonce');
 				if (url) {
 					$.get(url).done(function () {
-						location.reload(true);
+						setTimeout(() => {
+							location.reload(true);
+						}, 500);
 					});
 				}
 			}, false);

@@ -1,3 +1,9 @@
+
+$('#myTab a').on('click', function (e) {
+	e.preventDefault()
+	$(this).tab('show')
+});
+
 $(document).ready(function () {
 	var annonce;
 	var request;
@@ -6,7 +12,6 @@ $(document).ready(function () {
 		annonce = button.data('annonce');
 	});
 	$('#envoyer').submit(function (event) {
-		console.log('annonce', annonce);
 		event.preventDefault();
 		if (request) {
 			request.abort();

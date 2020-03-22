@@ -6,8 +6,8 @@ var _ = require('lodash');
 */
 exports.initLocals = function (req, res, next) {
 	res.locals.navLinks = [
-		{ label: 'Les annonces', key: 'home', href: '/' },
-		{ label: 'Déposer une annonce', key: 'depos', href: '/depos' },
+		{ label: 'Les annonces et dessins', key: 'home', href: '/' },
+		{ label: 'Déposer annonce ou dessin', key: 'depos', href: '/depos' },
 		{ label: 'Nous contacter', key: 'contact', href: '/contact' },
 	];
 	res.locals.user = req.user;
