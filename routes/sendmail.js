@@ -24,7 +24,7 @@ exports.sendMail = ({ from, to, subject, text, html, replyTo }) => {
 			pass: process.env.EMAIL_CONFIGURATION_PWD || 'WSConseil2008',
 		},
 	});
-	const adrEmail = 'Ne pas répondre <valmondois-entr-aide@valmondois.fr>';
+	const adrEmail = 'Valmondois Entr\'Aide <contact@valmondois.fr>';
 	const mailOptions = {
 		from: from || adrEmail,
 		sender: from || adrEmail,
