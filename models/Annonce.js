@@ -1,6 +1,7 @@
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
 const sendMail = require('../routes/sendmail');
+const nameFunctions = require('keystone-storage-namefunctions');
 
 /**
  * Annonce Model
@@ -8,6 +9,20 @@ const sendMail = require('../routes/sendmail');
  */
 var Annonce = new keystone.List('Annonce', {
 	map: { name: 'titre' },
+});
+
+var storage = new keystone.Storage({
+	adapter: keystone.Storage.Adapters.FS,
+	fs: {
+		path: 'uploads',
+		publicPath: '/public/uploads/',
+		generateFilename: nameFunctions.originalFilename,
+	},
+	schema: {
+		path: true,
+		originalname: true,
+		url: true,
+	},
 });
 
 Annonce.add({
@@ -22,6 +37,7 @@ Annonce.add({
 	dateDepot: { type: Types.Datetime, default: Date.now, noedit: true },
 	nbClick: { type: Number, noedit: true },
 	validee: { type: Boolean },
+	fichier: { type: Types.File, storage: storage },
 });
 
 Annonce.schema.pre('save', function (next) {

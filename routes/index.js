@@ -26,6 +26,8 @@ exports = module.exports = function (app) {
 	app.post('/api/envoyer/:annonce', routes.api.annonce.Envoyer);
 	app.get('/api/valide/:annonce', routes.api.annonce.Valide);
 	app.get('/api/delete/:annonce', routes.api.annonce.Delete);
+	// download publication
+	app.get('/api/download/:id', routes.api.download);
 
 	app.post('/api/enregistredessin', routes.api.dessin.Save);
 	app.get('/api/validedessin/:dessin', routes.api.dessin.Valide);

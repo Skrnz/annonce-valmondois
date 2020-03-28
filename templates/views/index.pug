@@ -33,6 +33,10 @@ mixin annonce(annonce)
 					= quartier
 			if annonce.type != 'Bon plan'
 				button.btn.btn-block.btn-outline-dark(type="button", data-toggle="modal", data-target="#modalContact", data-annonce= annonce.id) Contacter l'annonceur
+			else if annonce.fichier && annonce.fichier.size
+				a.btn.btn-block.btn-outline-dark(href="/api/download/" + annonce._id, title =annonce.fichier.originalname) Télécharger (
+					= Math.floor(annonce.fichier.size / 1024)
+					|  ko)
 			else
 				p.mt-2.mb-2 &nbsp;
 
