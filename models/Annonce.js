@@ -47,7 +47,7 @@ Annonce.schema.pre('save', function (next) {
 
 Annonce.schema.post('save', function () {
 	if (this.wasNew) {
-		this.sendNotificationEmail();
+		if (this.nom) this.sendNotificationEmail();
 	}
 });
 
