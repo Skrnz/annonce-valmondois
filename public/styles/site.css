@@ -77,3 +77,13 @@
 
 .badge {
   margin-left: 1.5em; }
+
+.nav-pills a {
+  text-decoration: none;
+  color: #495057; }
+  .nav-pills a.nav-link {
+    border: 1px solid #eee;
+    margin: 0 5px; }
+  .nav-pills a:hover {
+    background-color: #eee;
+    transition: 0.2s; }

@@ -2,7 +2,7 @@ extends ../layouts/default
 
 block content
 	.container.liste
-		ul.nav.nav-tabs.nav-justified.mt-3.mb-3#pills-tab(role="tablist")
+		ul.nav.nav-pills.nav-justified.mt-3.mb-3#pills-tab(role="tablist")
 			li.nav-item
 				a.nav-link.active#pill-annonce(data-toggle="pill", href="#pills-annonce", role="tab") Les annonces
 			li.nav-item
@@ -25,6 +25,8 @@ block content
 							each annonce in data.annonces
 								tr
 									th(scope="row")= annonce._.dateDepot.format('DD/MM/YYYY H:mm')
+										if annonce.commercial
+											span.badge.badge-danger Commercial
 									td
 										p= annonce.type
 										p= annonce.quartier
