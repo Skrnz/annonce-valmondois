@@ -37,6 +37,7 @@ Annonce.add({
 	dateDepot: { type: Types.Datetime, default: Date.now, noedit: true },
 	nbClick: { type: Number, noedit: true },
 	validee: { type: Boolean },
+	commercial: { type: Boolean },
 	fichier: { type: Types.File, storage: storage },
 });
 
@@ -70,7 +71,8 @@ Annonce.schema.methods.sendNotificationEmail = function () {
 				<li>Quartier : ${annonce.quartier}</li>
 				<li>Lien pour la modifier : <a href=${process.env.ROOT_URL}/keystone/annonces/${annonce._id}>Modifier</a></li>
 			</ul>
-			Si elle semble convenable, la valider directement en cliquant ce lien <a href="${process.env.ROOT_URL}/api/valide/${annonce._id}">Valider</a>`,
+			<p>Si elle semble convenable, la valider directement en cliquant ce lien <a href="${process.env.ROOT_URL}/api/valide/${annonce._id}">Valider</a></p>,
+			<p>Si c'est une annonce "commerciale", la valider en cliquant ce lien <a href="${process.env.ROOT_URL}/api/valide/${annonce._id}?commercial=1">Valider comme annonce commerciale</a></p>`,
 	});
 };
 

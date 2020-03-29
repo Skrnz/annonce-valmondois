@@ -72,17 +72,42 @@ block content
 				| &nbsp;a été ajoutée
 				button.btn.btn-outline-info.btn-sm.ml-5(rel="popover") Plus d'informations
 				
-		ul.nav.nav-tabs.nav-justified#pills-tab(role="tablist")
+		ul.nav.nav-pills.nav-justified#pills-tab(role="tablist")
 			li.nav-item
 				a.nav-link.active#pill-annonce(data-toggle="pill", href="#pills-annonce", role="tab") Les annonces
+					span.badge.badge-light= data.annonces.filter(a => !a.commercial).length
+			li.nav-item
+				a.nav-link#pill-annonce-com(data-toggle="pill", href="#pills-annonce-com", role="tab") Annonce commerciale
+					span.badge.badge-light= data.annonces.filter(a => a.commercial).length
 			li.nav-item
 				a.nav-link#pill-dessin(data-toggle="pill", href="#pills-dessin", role="tab") Les dessins
+					span.badge.badge-light= data.dessins.length
 		.alert#result
 		.tab-content#pills-tabContent
 			.tab-pane.fade.show.active#pills-annonce(role="tabpanel")
 				.card-columns
 					each annonce in data.annonces
-						+annonce(annonce)
+						if !annonce.commercial
+							+annonce(annonce)
+			.tab-pane.fade#pills-annonce-com(role="tabpanel")
+				.jumbotron
+					h2 Ici Nos commerçants vous proposent leur service
+					p L’épicerie du parc
+						em  Isabelle et Lourival Feirrera
+						|  57 grande rue à Valmondois
+					p Continuent sans relâche avec le plus grand dévouement à sélectionner préparer leurs produits habituels
+					ul
+						li Plat du jour - maison
+						li Pain frais tous les jours
+						li Paniers-dépannage
+						li cave produits frais
+					p Vous pouvez commander
+						em  Tel 01 34 73 44 49
+					p D’autres commerçants, habituellement présents sur nos marchés, peuvent déposer leurs offres de service ici
+				.card-columns
+					each annonce in data.annonces
+						if annonce.commercial
+							+annonce(annonce)
 			.tab-pane.fade#pills-dessin(role="tabpanel")
 				.card-columns
 					each dessin in data.dessins

@@ -54,9 +54,10 @@ exports.Valide = async (req, res) => {
 	console.log('Valide', req.params.annonce);
 	const annonce = await keystone.list('Annonce').model.findById(req.params.annonce);
 	const updater = annonce.getUpdateHandler(req);
-	updater.process({ validee: true }, {
+	const commercial = !!req.query.commercial;
+	updater.process({ validee: true, commercial: commercial }, {
 		flashErrors: true,
-		fields: 'validee',
+		fields: 'validee, commercial',
 		errorMessage: 'Problème lors de la validation de l\'annonce',
 	}, function (err) {
 		if (err) {
