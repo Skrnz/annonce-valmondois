@@ -14,8 +14,8 @@ var Annonce = new keystone.List('Annonce', {
 var storage = new keystone.Storage({
 	adapter: keystone.Storage.Adapters.FS,
 	fs: {
-		path: keystone.expandPath('./public/uploads'), // required; path where the files should be stored
-		publicPath: '/uploads', // path where files will be served
+		path: keystone.expandPath('./uploads'), // required; path where the files should be stored
+		// publicPath: '/public/uploads', // path where files will be served
 		generateFilename: nameFunctions.originalFilename,
 	},
 	schema: {
