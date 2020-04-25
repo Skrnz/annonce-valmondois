@@ -1,20 +1,20 @@
-var keystone = require('keystone');
+var keystone = require("keystone");
 var Types = keystone.Field.Types;
-const sendMail = require('../routes/sendmail');
-const nameFunctions = require('keystone-storage-namefunctions');
+const sendMail = require("../routes/sendmail");
+const nameFunctions = require("keystone-storage-namefunctions");
 
 /**
  * Annonce Model
  * ==========
  */
-var Annonce = new keystone.List('Annonce', {
-	map: { name: 'titre' },
+var Annonce = new keystone.List("Annonce", {
+	map: { name: "titre" },
 });
 
 var storage = new keystone.Storage({
 	adapter: keystone.Storage.Adapters.FS,
 	fs: {
-		path: keystone.expandPath('./uploads'), // required; path where the files should be stored
+		path: keystone.expandPath("./uploads"), // required; path where the files should be stored
 		// publicPath: '/public/uploads', // path where files will be served
 		generateFilename: nameFunctions.originalFilename,
 	},
@@ -27,8 +27,14 @@ var storage = new keystone.Storage({
 
 Annonce.add({
 	titre: { type: String, required: true },
-	type: { type: Types.Select, options: 'Offre, Demande, Bon plan' },
-	quartier: { type: Types.Select, options: 'PAL, CENTRE, NAZE, BUTRY, NESLES, PARMAIN, SITE, LOIN' },
+	type: {
+		type: Types.Select,
+		options: "Offre, Demande, Bon plan, Initiatives",
+	},
+	quartier: {
+		type: Types.Select,
+		options: "PAL, CENTRE, NAZE, BUTRY, NESLES, PARMAIN, SITE, LOIN",
+	},
 	message: { type: Types.Textarea, height: 400 },
 	nom: { type: String },
 	prenom: { type: String },
@@ -39,14 +45,16 @@ Annonce.add({
 	validee: { type: Boolean },
 	commercial: { type: Boolean },
 	fichier: { type: Types.File, storage: storage },
+	lien: { type: Types.Url },
+	nomLien: { type: String },
 });
 
-Annonce.schema.pre('save', function (next) {
+Annonce.schema.pre("save", function (next) {
 	this.wasNew = this.isNew;
 	next();
 });
 
-Annonce.schema.post('save', function () {
+Annonce.schema.post("save", function () {
 	if (this.wasNew) {
 		if (this.nom) this.sendNotificationEmail();
 	}
@@ -54,10 +62,10 @@ Annonce.schema.post('save', function () {
 
 Annonce.schema.methods.sendNotificationEmail = function () {
 	const annonce = this;
-	console.log('sendNotificationEmail');
+	console.log("sendNotificationEmail");
 	// envoie un mail à tous les admins du site
 	sendMail.sendMailToAdmins({
-		subject: 'Nouvelle annonce à modérer',
+		subject: "Nouvelle annonce à modérer",
 		text: `Annonce: Nom : ${annonce.prenom} ${annonce.nom}, Email : ${annonce.email}, Téléphone : ${annonce.telephone}, Titre: ${annonce.titre}, Message : ${annonce.message}, lien: ${process.env.ROOT_URL}/keystone/annonces/${annonce._id}`,
 		html: `Nouvelle annonce sur le site d'entre aide
 			<ul>
@@ -79,6 +87,7 @@ Annonce.schema.methods.sendNotificationEmail = function () {
 /**
  * Registration
  */
-Annonce.defaultColumns = 'titre, type, prenom, nom, dateDepot, quartier, validee, nbClick';
-Annonce.defaultSort = '-dateDepot';
+Annonce.defaultColumns =
+	"titre, type, prenom, nom, dateDepot, quartier, validee, nbClick";
+Annonce.defaultSort = "-dateDepot";
 Annonce.register();

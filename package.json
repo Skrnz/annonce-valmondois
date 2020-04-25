@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "repository": {
-	  "type": "git",
-	  "url": "https://github.com/Skrnz/annonce-valmondois"
+    "type": "git",
+    "url": "https://github.com/Skrnz/annonce-valmondois"
   },
   "author": {
-	  "name": "william schlegel",
-	  "email": "william.schlegel@gmail.com"
+    "name": "william schlegel",
+    "email": "william.schlegel@gmail.com"
   },
   "license": "MIT",
   "dependencies": {
@@ -32,7 +32,7 @@
     "start": "node keystone.js"
   },
   "engines": {
-	  "npm": ">=6.13.0",
-	  "node": ">=10.16.0"
+    "npm": ">=6.13.0",
+    "node": ">=10.16.0"
   }
 }

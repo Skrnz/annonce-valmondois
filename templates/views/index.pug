@@ -31,8 +31,10 @@ mixin annonce(annonce)
 					= annonce._.dateDepot.format('DD/MM')
 				.ruban
 					= quartier
-			if annonce.type != 'Bon plan'
-				button.btn.btn-block.btn-outline-dark(type="button", data-toggle="modal", data-target="#modalContact", data-annonce= annonce.id) Contacter l'annonceur
+			if annonce.lien && annonce.nomLien != ""
+				a.btn.btn-block.btn-outline-dark(href=annonce.lien, title =annonce.nomLien) Se rendre sur le site
+			else if annonce.type != 'Bon plan' 
+				button.btn.btn-block.btn-outline-dark(type="button" data-toggle="modal" data-target="#modalContact", data-annonce= annonce.id) Contacter l'annonceur
 			else if annonce.fichier && annonce.fichier.size
 				a.btn.btn-block.btn-outline-dark(href="/api/download/" + annonce._id, title =annonce.fichier.originalname) Télécharger (
 					= Math.floor(annonce.fichier.size / 1024)
@@ -44,7 +46,7 @@ mixin dessin(dessin)
 	.card.mb-3
 		.card-body
 			.container-fluid
-				a(href="#", data-toggle="modal", data-target="#modalDessin", data-source=dessin._.dessin.src(), data-titre=dessin.titre)
+				a(href="#" data-toggle="modal" data-target="#modalDessin", data-source=dessin._.dessin.src(), data-titre=dessin.titre)
 					img.card-img-top(src=dessin._.dessin.src())
 				h5= dessin.titre
 				.text-dessin= dessin.message
@@ -71,16 +73,16 @@ block content
 					strong dessins
 				| &nbsp;a été ajoutée
 				button.btn.btn-outline-info.btn-sm.ml-5(rel="popover") Plus d'informations
-				
+
 		ul.nav.nav-pills.nav-justified#pills-tab(role="tablist")
 			li.nav-item
-				a.nav-link.active#pill-annonce(data-toggle="pill", href="#pills-annonce", role="tab") Les annonces
+				a.nav-link.active#pill-annonce(data-toggle="pill" href="#pills-annonce" role="tab") Les annonces
 					span.badge.badge-light= data.annonces.filter(a => !a.commercial).length
 			li.nav-item
-				a.nav-link#pill-annonce-com(data-toggle="pill", href="#pills-annonce-com", role="tab") Annonces commerciales
+				a.nav-link#pill-annonce-com(data-toggle="pill" href="#pills-annonce-com" role="tab") Annonces commerciales
 					span.badge.badge-light= data.annonces.filter(a => a.commercial).length
 			li.nav-item
-				a.nav-link#pill-dessin(data-toggle="pill", href="#pills-dessin", role="tab") Les dessins
+				a.nav-link#pill-dessin(data-toggle="pill" href="#pills-dessin" role="tab") Les dessins
 					span.badge.badge-light= data.dessins.length
 		.alert#result
 		.tab-content#pills-tabContent
@@ -114,25 +116,25 @@ block content
 					each dessin in data.dessins
 						+dessin(dessin)
 
-	.modal.fade#modalDessin(tabindex="-1", role="dialog", aria-labelledby="titreModal", aria-hidden="true")
+	.modal.fade#modalDessin(tabindex="-1" role="dialog" aria-labelledby="titreModal" aria-hidden="true")
 		.modal-dialog.modal-dialog-centered.modal-lg(role="document")
 			.modal-content
 				.modal-header
 					h5.modal-title#titreModalDessin
-					button(type="button", class="close", data-dismiss="modal", aria-label="Close")
+					button(type="button" class="close" data-dismiss="modal" aria-label="Close")
 					span(aria-hidden="true") &times;
 				.modal-body.text-center
 					img#imageModalDessin
 
-	
-	.modal.fade#modalContact(tabindex="-1", role="dialog", aria-labelledby="titreModal", aria-hidden="true")
+
+	.modal.fade#modalContact(tabindex="-1" role="dialog" aria-labelledby="titreModal" aria-hidden="true")
 		.modal-dialog.modal-dialog-centered.modal-lg(role="document")
 			.modal-content
 				.modal-header
 					h5.modal-title#titreModal Contacter quelqu'un au sujet de son annonce
-					button(type="button", class="close", data-dismiss="modal", aria-label="Close")
+					button(type="button" class="close" data-dismiss="modal" aria-label="Close")
 					span(aria-hidden="true") &times;
-				form#envoyer(name="envoyer", role="form")
+				form#envoyer(name="envoyer" role="form")
 					.modal-body
 						p pour contacter l'annonceur, merci de dire qui vous êtes et vomment vous recontacter.
 						p un message va lui être envoyé et il pourra ainsi vous répondre
@@ -159,8 +161,8 @@ block content
 								textarea.form-control#message(rows="4", required=true)
 								.invalid-feedback Un petit message pour vous présenter est la moindre des politesses non ?
 					.modal-footer
-						button(type="button", class="btn btn-secondary", data-dismiss="modal") Abandonner
-						input#submit(type="submit", class="btn btn-primary")
+						button(type="button" class="btn btn-secondary" data-dismiss="modal") Abandonner
+						input#submit(type="submit" class="btn btn-primary")
 	#texte-apev(style="display: none")
 		include ../mixins/texte-apev
 
